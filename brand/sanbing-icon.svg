@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect width="1024" height="1024" fill="#F3F1EA"/>
+  <g transform="translate(512 512) scale(1.10) translate(-512 -512)">
+    <g transform="translate(-58 2)">
+    <path d="M300 250 L680 230 L710 570 L330 600 Z" fill="#F3F1EA" stroke="#141B21" stroke-width="16" stroke-linejoin="miter"/>
+    <path d="M350 330 L740 300 L780 650 L390 690 Z" fill="#141B21" stroke="#F3F1EA" stroke-width="24" stroke-linejoin="miter"/>
+    <path d="M400 420 L800 390 L840 740 L440 790 Z" fill="#255F59" stroke="#F3F1EA" stroke-width="24" stroke-linejoin="miter"/>
+    </g>
+  </g>
+</svg>

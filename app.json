@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/overview/overview",
+    "pages/index/index",
+    "pages/visit/visit",
+    "pages/alliance/alliance",
+    "pages/wechat-profile/wechat-profile",
+    "pages/init/init",
+    "pages/game-profile-edit/game-profile-edit",
+    "pages/settings/settings",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "三冰AI助手",
+    "navigationBarBackgroundColor": "#f3f1ea",
+    "backgroundColor": "#f3f1ea",
+    "backgroundTextStyle": "dark",
+    "backgroundColorTop": "#f3f1ea",
+    "backgroundColorBottom": "#f3f1ea"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "custom": true,
+    "color": "#6d767f",
+    "selectedColor": "#255f59",
+    "backgroundColor": "#f3f1ea",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/overview/overview",
+        "text": "总览"
+      },
+      {
+        "pagePath": "pages/visit/visit",
+        "text": "拜访"
+      },
+      {
+        "pagePath": "pages/alliance/alliance",
+        "text": "同盟"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  }
+}

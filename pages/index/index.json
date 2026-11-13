@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "三冰 AI",
+  "navigationBarBackgroundColor": "#f3f1ea",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  },
+  "backgroundColor": "#f3f1ea",
+  "backgroundTextStyle": "dark",
+  "backgroundColorTop": "#f3f1ea",
+  "backgroundColorBottom": "#f3f1ea",
+  "navigationStyle": "custom"
+}

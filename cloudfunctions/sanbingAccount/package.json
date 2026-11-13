@@ -1,0 +1,10 @@
+{
+  "name": "sanbing-account",
+  "version": "1.0.0",
+  "private": true,
+  "description": "三冰AI助手第一期账号与个人资料云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "4.0.2"
+  }
+}

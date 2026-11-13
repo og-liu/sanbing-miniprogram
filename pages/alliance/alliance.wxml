@@ -1,0 +1,18 @@
+<nav-bar title="同盟" />
+<view class="page tab-page {{tabEntering ? 'tab-page--enter' : ''}}">
+  <view class="page-head">
+    <text class="eyebrow">ALLIANCE / COMMAND</text>
+    <text class="page-title">同盟</text>
+    <text class="page-subtitle">创建或加入一个同盟，和同袍一起记录成长。</text>
+  </view>
+
+  <view class="empty-panel">
+    <view class="empty-glyph">
+      <view class="empty-glyph__diamond"></view>
+      <view class="empty-glyph__dot"></view>
+    </view>
+    <text class="empty-kicker">NO ALLIANCE YET</text>
+    <text class="empty-title">还没有加入同盟</text>
+    <text class="empty-copy">同盟创建、加入和成员管理将在后续开放。这里先保留完整的位置与结构。</text>
+  </view>
+</view>

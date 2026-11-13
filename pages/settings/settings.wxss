@@ -1,0 +1,82 @@
+.settings-page {
+  --settings-row-height: 104rpx;
+  padding: 0 var(--sb-page-gutter) calc(56rpx + env(safe-area-inset-bottom));
+}
+
+.settings-group {
+  margin-top: 38rpx;
+  border-top: 1rpx solid var(--sb-line);
+}
+
+.settings-kicker {
+  display: block;
+  padding: 18rpx 0 4rpx;
+  color: var(--sb-accent);
+  font-family: var(--sb-font-mono);
+  font-size: 17rpx;
+  letter-spacing: 2rpx;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--settings-row-height);
+  padding: 0;
+}
+
+.settings-row + .settings-row {
+  border-top: 1rpx solid var(--sb-line);
+}
+
+.settings-label {
+  color: var(--sb-text);
+  font-size: 26rpx;
+}
+
+.settings-value {
+  max-width: 420rpx;
+  color: var(--sb-text-muted);
+  font-size: 24rpx;
+  text-align: right;
+}
+
+.settings-action {
+  display: flex;
+  align-items: center;
+}
+
+.settings-arrow {
+  margin-left: 10rpx;
+  color: var(--sb-text-faint);
+  font-family: var(--sb-font-mono);
+  font-size: 24rpx;
+}
+
+.settings-button {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 96rpx;
+  height: 56rpx;
+  padding: 0 18rpx;
+  border: 1rpx solid var(--sb-line);
+  border-radius: var(--sb-radius-control);
+  background: var(--sb-surface);
+  color: var(--sb-text-muted);
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.settings-note {
+  display: block;
+  margin: 8rpx 0 0;
+  color: var(--sb-text-faint);
+  font-size: 21rpx;
+  line-height: 1.55;
+}
+
+.settings-group--last {
+  margin-bottom: 8rpx;
+}

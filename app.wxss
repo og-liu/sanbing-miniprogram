@@ -1,0 +1,639 @@
+/**app.wxss**/
+page {
+  /* Daylight Console v3.2：暖纸、墨色、深青信号 */
+  --sb-bg: #f3f1ea;
+  --sb-surface: #fbfaf6;
+  --sb-surface-soft: #ece9e0;
+  --sb-surface-muted: #e4e0d6;
+  --sb-control-bg: #f6f3ec;
+  --sb-text: #141b21;
+  --sb-text-strong: #080d12;
+  --sb-text-muted: #6d767f;
+  --sb-text-faint: #9ba1a7;
+  --sb-line: #ddd9cf;
+  --sb-line-strong: #c6c2b6;
+  --sb-accent: #255f59;
+  --sb-accent-strong: #184743;
+  --sb-accent-soft: #e2eeec;
+  --sb-danger: #c24d41;
+  --sb-danger-soft: #fbece8;
+  --sb-danger-line: #eac7bf;
+  --sb-success: #4b8a6d;
+  --sb-action-bg: #111820;
+  --sb-action-text: #f8f7f2;
+  --sb-on-accent: #f8faff;
+  --sb-sigil-line: rgba(37, 95, 89, 0.16);
+  --sb-sigil-line-soft: rgba(37, 95, 89, 0.08);
+
+  --sb-radius-card: 20rpx;
+  --sb-radius-control: 12rpx;
+  --sb-radius-tag: 6rpx;
+  --sb-radius-pill: 999rpx;
+  --sb-page-gutter: 32rpx;
+  --sb-control-height: 96rpx;
+  --sb-content-max: 720px;
+
+  --sb-font-mono: "SFMono-Regular", "Roboto Mono", "IBM Plex Mono", Menlo,
+    monospace;
+  --sb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  min-height: 100%;
+  background-color: #f3f1ea;
+  background: var(--sb-bg);
+  color: var(--sb-text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 30rpx;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+image {
+  box-sizing: border-box;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  transition: opacity 0.16s var(--sb-ease), transform 0.16s var(--sb-ease),
+    background-color 0.16s var(--sb-ease);
+}
+
+button::after {
+  border: 0;
+}
+
+image {
+  display: block;
+}
+
+.button-hover {
+  opacity: 0.84;
+  transform: translateY(1rpx);
+}
+
+/* ---------- 页面骨架：留白 + 墨线，不堆卡片 ---------- */
+
+.page {
+  position: relative;
+  width: 100%;
+  max-width: var(--sb-content-max);
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #f3f1ea;
+  background: var(--sb-bg);
+}
+
+.page-head {
+  position: relative;
+  z-index: 1;
+  padding: 48rpx 0 30rpx;
+  animation: sb-rise 0.52s var(--sb-ease) both;
+}
+
+.eyebrow-row,
+.step-row {
+  display: flex;
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--sb-accent);
+  font-family: var(--sb-font-mono);
+  font-size: 20rpx;
+  letter-spacing: 3rpx;
+}
+
+.eyebrow-note {
+  margin-left: auto;
+  color: var(--sb-text-faint);
+  font-family: var(--sb-font-mono);
+  font-size: 19rpx;
+  letter-spacing: 2rpx;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48rpx;
+  height: 40rpx;
+  padding: 0 12rpx;
+  border: 1rpx solid var(--sb-line-strong);
+  border-radius: var(--sb-radius-tag);
+  color: var(--sb-accent-strong);
+  font-family: var(--sb-font-mono);
+  font-size: 20rpx;
+  letter-spacing: 2rpx;
+}
+
+.step-total {
+  margin-left: 14rpx;
+  color: var(--sb-text-faint);
+  font-family: var(--sb-font-mono);
+  font-size: 19rpx;
+  letter-spacing: 2rpx;
+}
+
+.page-title {
+  display: block;
+  margin-top: 26rpx;
+  color: var(--sb-text-strong);
+  font-size: 58rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  line-height: 1.15;
+}
+
+.page-subtitle {
+  display: block;
+  max-width: 620rpx;
+  margin-top: 16rpx;
+  color: var(--sb-text-muted);
+  font-size: 27rpx;
+  line-height: 1.65;
+}
+
+/* ---------- Tab 页面与空白状态 ---------- */
+
+.tab-page {
+  /* 自定义导航栏的 spacer 已经占据顶部高度，不能再给页面叠加 100vh；
+     否则空状态页也会比视口高出导航栏高度，产生无意义滚动条。 */
+  min-height: 0;
+  padding: 0 var(--sb-page-gutter) calc(176rpx + env(safe-area-inset-bottom));
+}
+
+/* tab 页没有可定制的原生转场，用极短的整页淡入 + 轻微上升补连续感。
+   子元素自己的入场动画关闭，避免二次上浮。 */
+.tab-page--enter,
+.page--enter {
+  animation: tab-page-enter 0.28s var(--sb-ease) both;
+}
+
+.tab-page .page-head,
+.profile-scroll .profile-head,
+.profile-scroll .power-panel {
+  animation: none;
+}
+
+@keyframes tab-page-enter {
+  from {
+    opacity: 0.64;
+    transform: translate3d(0, 8rpx, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.empty-panel {
+  margin-top: 54rpx;
+  padding: 44rpx 0 52rpx;
+  border-top: 1rpx solid var(--sb-line);
+  border-bottom: 1rpx solid var(--sb-line);
+}
+
+.empty-glyph {
+  position: relative;
+  width: 72rpx;
+  height: 72rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-glyph__diamond {
+  position: absolute;
+  top: 13rpx;
+  left: 13rpx;
+  width: 44rpx;
+  height: 44rpx;
+  border: 1rpx solid var(--sb-line-strong);
+  transform: rotate(45deg);
+}
+
+.empty-glyph__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8rpx;
+  height: 8rpx;
+  margin: -4rpx 0 0 -4rpx;
+  border-radius: 50%;
+  background: var(--sb-accent);
+}
+
+.empty-kicker {
+  display: block;
+  color: var(--sb-accent);
+  font-family: var(--sb-font-mono);
+  font-size: 18rpx;
+  letter-spacing: 2rpx;
+}
+
+.empty-title {
+  display: block;
+  margin-top: 14rpx;
+  color: var(--sb-text-strong);
+  font-size: 36rpx;
+  font-weight: 500;
+  letter-spacing: -1rpx;
+  line-height: 1.25;
+}
+
+.empty-copy {
+  display: block;
+  max-width: 580rpx;
+  margin-top: 12rpx;
+  color: var(--sb-text-muted);
+  font-size: 25rpx;
+  line-height: 1.7;
+}
+
+/* ---------- 两步流程：一条会生长的线 ---------- */
+
+.step-track {
+  width: 100%;
+  height: 2rpx;
+  margin-top: 24rpx;
+  overflow: hidden;
+  background: var(--sb-line);
+}
+
+.step-track__fill {
+  width: 50%;
+  height: 100%;
+  background: var(--sb-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: step-fill 0.8s 0.2s var(--sb-ease) forwards;
+}
+
+.step-track__fill--full {
+  width: 100%;
+}
+
+@keyframes step-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- 冰纹图腾：低对比装饰，不承载语义 ---------- */
+
+.ice-sigil {
+  position: absolute;
+  z-index: 0;
+  width: 520rpx;
+  height: 520rpx;
+  pointer-events: none;
+}
+
+.ice-sigil__ring {
+  position: absolute;
+  border: 1rpx solid var(--sb-sigil-line);
+  border-radius: 50%;
+}
+
+.ice-sigil__ring--outer {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.ice-sigil__ring--inner {
+  top: 78rpx;
+  right: 78rpx;
+  bottom: 78rpx;
+  left: 78rpx;
+  border-style: dashed;
+  border-color: var(--sb-sigil-line-soft);
+  animation: sigil-spin 72s linear infinite;
+}
+
+.ice-sigil__diamond {
+  position: absolute;
+  top: 126rpx;
+  right: 126rpx;
+  bottom: 126rpx;
+  left: 126rpx;
+  border: 1rpx solid var(--sb-sigil-line-soft);
+  transform: rotate(45deg);
+  animation: sigil-diamond 96s linear infinite;
+}
+
+.ice-sigil__axis {
+  position: absolute;
+  background: var(--sb-sigil-line-soft);
+}
+
+.ice-sigil__axis--h {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1rpx;
+}
+
+.ice-sigil__axis--v {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1rpx;
+}
+
+.ice-sigil__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10rpx;
+  height: 10rpx;
+  margin: -5rpx 0 0 -5rpx;
+  border-radius: 50%;
+  background: var(--sb-sigil-line);
+  box-shadow: 0 0 0 8rpx var(--sb-sigil-line-soft);
+}
+
+@keyframes sigil-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sigil-diamond {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+
+/* ---------- 表面：纸面，不是浮空玻璃 ---------- */
+
+.sb-card {
+  position: relative;
+  z-index: 1;
+  border: 1rpx solid var(--sb-line);
+  border-radius: var(--sb-radius-card);
+  background: var(--sb-surface);
+  animation: sb-rise 0.58s 0.06s var(--sb-ease) both;
+}
+
+.sb-note {
+  position: relative;
+  z-index: 1;
+  padding: 4rpx 0 4rpx 22rpx;
+  border-left: 3rpx solid var(--sb-accent);
+  animation: sb-rise 0.58s 0.16s var(--sb-ease) both;
+}
+
+/* ---------- 表单 ---------- */
+
+.sb-control {
+  display: flex;
+  align-items: center;
+  height: var(--sb-control-height);
+  margin-top: 14rpx;
+  padding: 0 22rpx;
+  border: 1rpx solid var(--sb-line);
+  border-radius: var(--sb-radius-control);
+  background: var(--sb-control-bg);
+  transition: border-color 0.18s var(--sb-ease),
+    box-shadow 0.18s var(--sb-ease), background-color 0.18s var(--sb-ease);
+}
+
+.sb-control:focus-within {
+  border-color: var(--sb-accent);
+  background: var(--sb-surface);
+  box-shadow: 0 0 0 3rpx var(--sb-accent-soft);
+}
+
+.sb-input {
+  flex: 1;
+  height: var(--sb-control-height);
+  color: var(--sb-text-strong);
+  font-size: 32rpx;
+  line-height: var(--sb-control-height);
+}
+
+.input-placeholder {
+  color: var(--sb-text-faint);
+  font-size: 28rpx;
+}
+
+.field {
+  padding-top: 30rpx;
+}
+
+.field--last {
+  padding-bottom: 4rpx;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.field-label {
+  color: var(--sb-text);
+  font-size: 27rpx;
+  font-weight: 500;
+}
+
+.required-mark {
+  color: var(--sb-text-faint);
+  font-family: var(--sb-font-mono);
+  font-size: 19rpx;
+  letter-spacing: 1rpx;
+}
+
+.field-help {
+  display: block;
+  margin-top: 10rpx;
+  color: var(--sb-text-faint);
+  font-size: 24rpx;
+  line-height: 1.55;
+}
+
+.field-error {
+  display: block;
+  margin-top: 8rpx;
+  color: var(--sb-danger);
+  font-size: 24rpx;
+  line-height: 1.55;
+}
+
+.form-error {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 22rpx;
+  padding: 16rpx 18rpx;
+  border: 1rpx solid var(--sb-danger-line);
+  border-radius: var(--sb-radius-control);
+  background: var(--sb-danger-soft);
+}
+
+.form-error-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26rpx;
+  height: 26rpx;
+  margin-top: 3rpx;
+  border: 2rpx solid var(--sb-danger);
+  border-radius: 50%;
+  color: var(--sb-danger);
+  font-size: 17rpx;
+  font-weight: 600;
+}
+
+.form-error-text {
+  margin-left: 12rpx;
+  color: var(--sb-danger);
+  font-size: 24rpx;
+  line-height: 1.55;
+}
+
+/* ---------- 按钮：黑是动作，纸是背景 ---------- */
+
+.sb-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  height: var(--sb-control-height);
+  margin-top: 28rpx;
+  border-radius: var(--sb-radius-control);
+  background: var(--sb-action-bg);
+  color: var(--sb-action-text);
+  font-size: 30rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+}
+
+.sb-primary--disabled {
+  opacity: 0.42;
+}
+
+.sb-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260rpx !important;
+  min-width: 0;
+  height: 88rpx;
+  margin-top: 28rpx;
+  padding: 0 32rpx;
+  border: 1rpx solid var(--sb-line-strong);
+  border-radius: var(--sb-radius-control);
+  background: transparent;
+  color: var(--sb-text);
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* ---------- 加载 / 错误 ---------- */
+
+.state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56rpx 32rpx;
+  text-align: center;
+}
+
+.state-spinner {
+  width: 42rpx;
+  height: 42rpx;
+  border: 4rpx solid var(--sb-line);
+  border-top-color: var(--sb-accent);
+  border-radius: 50%;
+  animation: sb-spin 0.9s linear infinite;
+}
+
+@keyframes sb-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.state-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60rpx;
+  height: 60rpx;
+  border: 1rpx solid var(--sb-danger-line);
+  border-radius: 50%;
+  background: var(--sb-danger-soft);
+  color: var(--sb-danger);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.state-title {
+  margin-top: 24rpx;
+  color: var(--sb-text-strong);
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.state-copy {
+  max-width: 520rpx;
+  margin-top: 12rpx;
+  color: var(--sb-text-muted);
+  font-size: 26rpx;
+  line-height: 1.65;
+}
+
+@keyframes sb-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16rpx, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-head,
+  .sb-card,
+  .sb-note,
+  .step-track__fill,
+  .state-spinner,
+  .ice-sigil__ring--inner,
+  .ice-sigil__diamond {
+    animation: none;
+    transform: none;
+  }
+
+  .ice-sigil__diamond {
+    transform: rotate(45deg);
+  }
+
+  .tab-page--enter,
+  .page--enter {
+    animation: none;
+  }
+}

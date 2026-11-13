@@ -1,0 +1,128 @@
+<!-- 微信资料：身份舞台 + 单一表单，不再把所有内容塞进一张卡 -->
+<view class="page">
+  <view class="page-head">
+    <view wx:if="{{!editMode}}" class="step-row">
+      <text class="step-badge">01</text>
+      <text class="step-total">/ 02 · WECHAT PROFILE</text>
+    </view>
+    <view wx:if="{{!editMode}}" class="step-track">
+      <view class="step-track__fill"></view>
+    </view>
+    <text class="page-title">{{editMode ? '编辑微信资料' : '完善微信资料'}}</text>
+    <text class="page-subtitle">{{editMode ? '修改头像昵称后会同步更新个人中心。' : '微信不会在登录时自动提供头像昵称；请在这里主动选择并确认一次，之后会自动用于个人中心展示。'}}</text>
+  </view>
+
+  <block wx:if="{{loading}}">
+    <view class="state-card sb-card">
+      <view class="state-spinner"></view>
+      <text class="state-title">正在读取微信资料</text>
+    </view>
+  </block>
+
+  <block wx:elif="{{loadError}}">
+    <view class="state-card sb-card">
+      <view class="state-icon">!</view>
+      <text class="state-title">加载失败</text>
+      <text class="state-copy">{{loadError}}</text>
+      <button
+        id="retryWechatProfileButton"
+        class="sb-secondary"
+        hover-class="button-hover"
+        bindtap="onRetry"
+      >重新加载</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="profile-layout">
+      <view class="identity-stage">
+        <view class="identity-meta">
+          <text class="identity-kicker">WECHAT IDENTITY</text>
+          <text class="identity-note">由你主动选择</text>
+        </view>
+        <view class="identity-body">
+          <button
+            id="chooseAvatarButton"
+            class="avatar-picker"
+            open-type="chooseAvatar"
+            hover-class="button-hover"
+            bind:chooseavatar="onChooseAvatar"
+          >
+            <image
+              wx:if="{{avatarPreview}}"
+              class="avatar-image"
+              src="{{avatarPreview}}"
+              mode="aspectFill"
+              binderror="onAvatarError"
+            />
+            <view wx:else class="avatar-placeholder">
+              <view class="avatar-head"></view>
+              <view class="avatar-body"></view>
+            </view>
+          </button>
+          <view class="avatar-copy">
+            <text class="avatar-title">微信头像</text>
+            <text class="avatar-hint">{{avatarError ? '头像加载失败，点击重新选择' : (hasExistingAvatar ? '已设置头像，点击可更换' : '点击左侧选择微信头像')}}</text>
+            <text class="avatar-hint avatar-hint--light">JPG / PNG / WebP · 不超过 500KB</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-sheet sb-card">
+        <view class="section-head">
+          <text class="section-index">01</text>
+          <text class="section-title">微信昵称</text>
+          <text class="section-meta">PROFILE NAME</text>
+        </view>
+
+        <view class="field field--first">
+          <view class="sb-control {{nicknameError ? 'nickname-shell--error' : ''}}">
+            <input
+              id="wechatNicknameInput"
+              class="sb-input"
+              type="nickname"
+              value="{{nickname}}"
+              maxlength="30"
+              placeholder="点击选择或填写微信昵称"
+              placeholder-class="input-placeholder"
+              bindinput="onNicknameInput"
+              bindchange="onNicknameInput"
+              cursor-spacing="24"
+            />
+          </view>
+          <text class="field-help">可使用微信键盘建议的昵称，请确认后再保存</text>
+          <text wx:if="{{nicknameError}}" class="field-error">{{nicknameError}}</text>
+        </view>
+
+        <view wx:if="{{formError}}" class="form-error">
+          <text class="form-error-mark">!</text>
+          <text class="form-error-text">{{formError}}</text>
+        </view>
+
+        <button
+          id="saveWechatProfileButton"
+          class="sb-primary {{saving ? 'sb-primary--disabled' : ''}}"
+          hover-class="button-hover"
+          disabled="{{saving}}"
+          bindtap="onSave"
+        >{{saving ? '正在保存…' : (editMode ? '保存修改' : '保存并继续')}}</button>
+
+        <view
+          wx:if="{{!editMode}}"
+          id="skipWechatProfileButton"
+          class="skip-link"
+          hover-class="button-hover"
+          bindtap="onSkip"
+        >{{skipLabel}}</view>
+      </view>
+    </view>
+
+    <view class="note-card sb-note">
+      <view class="note-title-row">
+        <view class="note-dot"></view>
+        <text class="note-title">WHY MANUAL / 为什么需要手动确认</text>
+      </view>
+      <text class="note-copy">这是微信平台对用户头像昵称的保护要求。小程序无法在打开时静默读取真实微信头像昵称，只能通过官方头像选择和昵称输入组件获取。</text>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "backgroundColor": "#f3f1ea",
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/nav-bar"
+  },
+  "navigationBarBackgroundColor": "#f3f1ea",
+  "navigationBarTextStyle": "black",
+  "backgroundColorTop": "#f3f1ea",
+  "backgroundColorBottom": "#f3f1ea",
+  "navigationStyle": "custom"
+}

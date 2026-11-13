@@ -1,0 +1,149 @@
+<!-- 登录页使用自定义导航栏，避免原生导航栏在刷新时闪白条和出现首页按钮 -->
+<view class="login-shell">
+  <nav-bar title="" />
+  <view class="login-body">
+<view wx:if="{{status === 'loading'}}" class="launch-splash">
+  <view class="launch-top">
+    <view class="brand-lockup">
+      <view class="brand-mark">冰</view>
+      <view class="brand-copy">
+        <text class="brand-name">三冰 AI</text>
+        <text class="brand-kicker">SANBING / COMMAND</text>
+      </view>
+    </view>
+    <text class="top-meta">WECHAT NATIVE · CLOUD</text>
+  </view>
+
+  <view class="launch-main">
+    <text class="eyebrow">{{loadingKicker}}</text>
+    <text class="launch-title">{{loadingTitle}}</text>
+    <text class="launch-copy">微信身份 · 云端同步</text>
+    <view class="launch-line">
+      <view class="launch-line__fill"></view>
+    </view>
+  </view>
+
+  <view class="launch-foot">
+    <text>安全识别 · 云端档案</text>
+    <text>V2.0 / 2026</text>
+  </view>
+</view>
+
+<!-- 登录异常：才展示完整的编辑式登录封面 -->
+<view wx:else class="login-page">
+  <text class="login-index">00</text>
+
+  <view class="login-top">
+    <view class="brand-lockup">
+      <view class="brand-mark">冰</view>
+      <view class="brand-copy">
+        <text class="brand-name">三冰 AI</text>
+        <text class="brand-kicker">SANBING / COMMAND</text>
+      </view>
+    </view>
+    <text class="top-meta">WECHAT NATIVE · CLOUD</text>
+  </view>
+
+  <view class="login-main">
+    <view class="login-copy">
+      <text class="eyebrow">PRIVATE COMMAND CENTER</text>
+      <text class="display">为三国冰河时代玩家</text>
+      <text class="display">而生的 <text class="display-accent">AI</text> 助手</text>
+      <text class="lead">自动识别微信身份，恢复你的角色档案。无需注册，也无需重复登录。</text>
+    </view>
+
+    <view class="login-browse" hover-class="button-hover" bindtap="onBrowse">
+      <text>先逛逛，不登录</text>
+      <text class="login-browse-arrow">→</text>
+    </view>
+
+    <view class="auth-panel">
+      <view class="auth-head">
+        <text class="auth-kicker">AUTHENTICATION</text>
+        <view class="auth-brand">
+          <view class="auth-dot"></view>
+          <text>WECHAT CLOUD</text>
+        </view>
+      </view>
+
+      <view class="auth-timeline">
+        <view class="auth-step">
+          <text class="auth-num">01</text>
+          <view class="auth-copy">
+            <text class="auth-title">微信身份</text>
+            <text class="auth-desc">由云开发安全识别</text>
+          </view>
+          <view class="auth-marker {{status === 'error' ? 'auth-marker--error' : (status === 'loading' ? 'auth-marker--active' : '')}}"></view>
+        </view>
+        <view class="auth-step">
+          <text class="auth-num">02</text>
+          <view class="auth-copy">
+            <text class="auth-title">平台账号</text>
+            <text class="auth-desc">自动建立或恢复档案</text>
+          </view>
+          <view class="auth-marker"></view>
+        </view>
+        <view class="auth-step">
+          <text class="auth-num">03</text>
+          <view class="auth-copy">
+            <text class="auth-title">进入工作台</text>
+            <text class="auth-desc">身份完成，加载个人中心</text>
+          </view>
+          <view class="auth-marker"></view>
+        </view>
+      </view>
+
+      <view class="auth-status">
+        <block wx:if="{{status === 'loading'}}">
+          <view class="auth-loading">
+            <view class="spinner"></view>
+            <text>正在建立安全会话</text>
+          </view>
+          <text class="auth-note">首次登录将自动创建平台账号</text>
+        </block>
+
+        <block wx:elif="{{status === 'error'}}">
+          <text class="auth-error">{{errorMessage}}</text>
+          <button
+            id="retryLoginButton"
+            class="sb-primary"
+            hover-class="button-hover"
+            bindtap="onRetry"
+          >重新登录</button>
+          <text class="auth-note">请确认网络连接正常，或稍后再试</text>
+        </block>
+
+        <block wx:elif="{{status === 'welcome'}}">
+          <button
+            id="welcomeEnterButton"
+            class="sb-primary"
+            hover-class="button-hover"
+            bindtap="onEnter"
+          >微信登录</button>
+          <text class="auth-note">点击后自动验证微信身份，无需注册</text>
+        </block>
+
+        <block wx:elif="{{status === 'signedOut'}}">
+          <button
+            id="enterAppButton"
+            class="sb-primary"
+            hover-class="button-hover"
+            bindtap="onEnter"
+          >重新验证并进入</button>
+          <text class="auth-note">微信身份不会解除，点击后重新读取云端档案</text>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <view class="footer-line"></view>
+    <view class="footer-row">
+      <text>安全识别 · 云端档案</text>
+      <text class="footer-version">V2.0 / 2026</text>
+    </view>
+    <text class="privacy-note">微信头像昵称将在登录后由你主动确认，也可以稍后完善</text>
+  </view>
+</view>
+  </view>
+</view>

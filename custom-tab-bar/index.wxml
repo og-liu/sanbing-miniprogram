@@ -1,0 +1,16 @@
+<view class="tabbar">
+  <view class="tabbar__inner">
+    <view
+      wx:for="{{list}}"
+      wx:key="pagePath"
+      class="tabbar__item {{selected === index ? 'tabbar__item--active' : ''}}"
+      hover-class="tabbar__item--hover"
+      data-index="{{index}}"
+      bindtap="onSwitch"
+    >
+      <view class="tabbar__tick"></view>
+      <text class="tabbar__label">{{item.label}}</text>
+      <text class="tabbar__en">{{item.en}}</text>
+    </view>
+  </view>
+</view>

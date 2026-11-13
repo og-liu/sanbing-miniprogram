@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# 云函数依赖
+cloudfunctions/**/node_modules/
+
+# 本地 IDE 元数据
+.idea/
+
+# 本地日志
+*.log
+
+# 微信开发者工具本地私有配置（如团队已有版本，可按团队约定调整）
+project.private.config.json

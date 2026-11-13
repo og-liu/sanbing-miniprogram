@@ -1,0 +1,9 @@
+/* 空白状态样式统一在 app.wxss 的 .tab-page / .empty-* 中维护。 */
+
+.empty-copy--guest {
+  margin-top: 18rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--sb-line);
+  color: var(--sb-text-faint);
+  font-size: 22rpx;
+}

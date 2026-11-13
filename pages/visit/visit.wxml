@@ -1,0 +1,18 @@
+<nav-bar title="拜访" />
+<view class="page tab-page {{tabEntering ? 'tab-page--enter' : ''}}">
+  <view class="page-head">
+    <text class="eyebrow">VISIT / MEMBERS</text>
+    <text class="page-title">拜访</text>
+    <text class="page-subtitle">看看同盟同袍的养成，找到值得参考的路径。</text>
+  </view>
+
+  <view class="empty-panel">
+    <view class="empty-glyph">
+      <view class="empty-glyph__diamond"></view>
+      <view class="empty-glyph__dot"></view>
+    </view>
+    <text class="empty-kicker">NO MEMBERS YET</text>
+    <text class="empty-title">还没有可拜访的同袍</text>
+    <text class="empty-copy">加入同盟后，同袍列表会出现在这里，点击即可查看对方的个人中心。</text>
+  </view>
+</view>

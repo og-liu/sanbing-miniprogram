@@ -1,0 +1,8 @@
+<view class="nav-wrap">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav__bar" style="height: {{navBarHeight}}px;">
+      <text class="nav__title">{{title}}</text>
+    </view>
+  </view>
+  <view class="nav__spacer" style="height: {{totalHeight}}px;"></view>
+</view>

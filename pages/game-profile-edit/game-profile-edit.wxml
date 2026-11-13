@@ -1,0 +1,136 @@
+<view class="page edit-page">
+  <view class="page-head">
+    <text class="eyebrow">PROFILE / EDIT</text>
+    <text class="page-title">{{editTitle}}</text>
+    <text class="page-subtitle">{{editSubtitle}}</text>
+  </view>
+
+  <block wx:if="{{loading}}">
+    <view class="state-card sb-card">
+      <view class="state-spinner"></view>
+      <text class="state-title">正在读取角色资料</text>
+    </view>
+  </block>
+
+  <block wx:elif="{{loadError}}">
+    <view class="state-card sb-card">
+      <view class="state-icon">!</view>
+      <text class="state-title">加载失败</text>
+      <text class="state-copy">{{loadError}}</text>
+      <button class="sb-secondary" hover-class="button-hover" bindtap="onRetry">重新加载</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="edit-sheet sb-card">
+      <block wx:if="{{editSection === 'basic'}}">
+      <view class="section-head">
+        <text class="section-index">01</text>
+        <text class="section-title">基础信息</text>
+        <text class="section-meta">IDENTITY</text>
+      </view>
+
+      <view class="field field--first">
+        <view class="label-row">
+          <text class="field-label">游戏昵称</text>
+          <text class="required-mark">必填</text>
+        </view>
+        <view class="sb-control {{fieldErrors.gameNickname ? 'input-shell--error' : ''}}">
+          <input
+            class="sb-input"
+            type="text"
+            value="{{gameNickname}}"
+            maxlength="30"
+            placeholder="请输入你在游戏中的昵称"
+            placeholder-class="input-placeholder"
+            bindinput="onNicknameInput"
+          />
+        </view>
+        <text wx:if="{{fieldErrors.gameNickname}}" class="field-error">{{fieldErrors.gameNickname}}</text>
+      </view>
+
+      <view class="field">
+        <view class="label-row">
+          <text class="field-label">性别</text>
+          <text class="required-mark">必填</text>
+        </view>
+        <view class="gender-options">
+          <view class="gender-option {{gender === 'male' ? 'gender-option--active' : ''}}" hover-class="button-hover" data-gender="male" bindtap="onGenderSelect">
+            <view class="gender-indicator"></view><text>男</text>
+          </view>
+          <view class="gender-option {{gender === 'female' ? 'gender-option--active' : ''}}" hover-class="button-hover" data-gender="female" bindtap="onGenderSelect">
+            <view class="gender-indicator"></view><text>女</text>
+          </view>
+          <view class="gender-option {{gender === 'secret' ? 'gender-option--active' : ''}}" hover-class="button-hover" data-gender="secret" bindtap="onGenderSelect">
+            <view class="gender-indicator"></view><text>保密</text>
+          </view>
+        </view>
+        <text wx:if="{{fieldErrors.gender}}" class="field-error">{{fieldErrors.gender}}</text>
+      </view>
+
+      <view class="field">
+        <view class="label-row">
+          <text class="field-label">当前总战力</text>
+          <text class="required-mark">必填</text>
+        </view>
+        <view class="sb-control {{fieldErrors.totalPower ? 'input-shell--error' : ''}}">
+          <input
+            class="sb-input text-input--number"
+            type="number"
+            value="{{totalPower}}"
+            maxlength="12"
+            placeholder="请输入当前总战力"
+            placeholder-class="input-placeholder"
+            bindinput="onPowerInput"
+          />
+          <text class="input-suffix">POWER</text>
+        </view>
+        <text wx:if="{{fieldErrors.totalPower}}" class="field-error">{{fieldErrors.totalPower}}</text>
+      </view>
+
+      </block>
+
+      <block wx:else>
+      <view class="section-head">
+        <text class="section-index">02</text>
+        <text class="section-title">核心属性</text>
+        <text class="section-meta">CORE ATTRIBUTES</text>
+      </view>
+
+      <view class="attribute-grid">
+        <view wx:for="{{attributeFields}}" wx:key="key" class="attribute-field">
+          <view class="attribute-label-row">
+            <text class="field-label">{{item.label}}</text>
+            <text class="attribute-optional">选填</text>
+          </view>
+          <view class="sb-control {{attributeErrors[item.key] ? 'input-shell--error' : ''}}">
+            <input
+              class="sb-input text-input--number"
+              type="{{item.unit ? 'digit' : 'number'}}"
+              value="{{attributeDrafts[item.key]}}"
+              data-key="{{item.key}}"
+              maxlength="9"
+              placeholder="{{item.placeholder}}"
+              placeholder-class="input-placeholder"
+              bindinput="onAttributeInput"
+            />
+            <text wx:if="{{item.unit}}" class="input-suffix">{{item.unit}}</text>
+          </view>
+          <text wx:if="{{attributeErrors[item.key]}}" class="field-error">{{attributeErrors[item.key]}}</text>
+        </view>
+      </view>
+      </block>
+
+      <view wx:if="{{formError}}" class="form-error">
+        <text class="form-error-mark">!</text>
+        <text class="form-error-text">{{formError}}</text>
+      </view>
+
+      <button class="sb-primary {{saving ? 'sb-primary--disabled' : ''}}" hover-class="button-hover" disabled="{{saving}}" bindtap="onSave">
+        {{saving ? '正在保存…' : '保存修改'}}
+      </button>
+
+      <text class="form-note">{{editSection === 'core' ? '百分比最多两位小数，出征兵力上限为整数' : '组织信息将在同盟功能开放后完善'}}</text>
+    </view>
+  </block>
+</view>

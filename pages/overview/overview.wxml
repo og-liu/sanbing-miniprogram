@@ -1,0 +1,19 @@
+<nav-bar title="总览" />
+<view class="page tab-page {{tabEntering ? 'tab-page--enter' : ''}}">
+  <view class="page-head">
+    <text class="eyebrow">OVERVIEW / ALLIANCE</text>
+    <text class="page-title">总览</text>
+    <text class="page-subtitle">加入同盟后，这里会汇总所有成员的养成数据。</text>
+  </view>
+
+  <view class="empty-panel">
+    <view class="empty-glyph">
+      <view class="empty-glyph__diamond"></view>
+      <view class="empty-glyph__dot"></view>
+    </view>
+    <text class="empty-kicker">NO DATA YET</text>
+    <text class="empty-title">还没有同盟数据</text>
+    <text class="empty-copy">创建或加入同盟后，这里会显示成员总战力、阶级与养成分布。</text>
+    <text class="empty-copy empty-copy--guest">总览会按你登录账号所属的区服与同盟展示；登录后读取。</text>
+  </view>
+</view>
